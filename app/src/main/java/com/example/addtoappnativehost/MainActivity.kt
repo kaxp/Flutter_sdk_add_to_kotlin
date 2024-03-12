@@ -1,16 +1,21 @@
 package com.example.addtoappnativehost
 
+import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.view.Menu
+import android.view.MenuItem
+import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import com.example.addtoappnativehost.databinding.ActivityMainBinding
 import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugin.common.MethodChannel
+import org.json.JSONObject
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,7 +27,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
@@ -30,9 +34,9 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.fab.setOnClickListener { view ->
-            startActivity(
-                FlutterActivity.createDefaultIntent(this)
-            )
+            val i = Intent(this, BankSathiSdkActivity::class.java)
+            i.putExtra("route", "/")
+            startActivity(i)
         }
     }
 
@@ -56,5 +60,34 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+}
+
+
+class BankSathiSdkActivity : FlutterActivity() {
+
+    private val CHANNEL = "banksathi_advisor_sdk"
+    private val METHOD = "sendDataToSDK"
+
+    override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
+        super.configureFlutterEngine(flutterEngine)
+
+        val json = JSONObject()
+        json.put("clientSecret", "#u4yQBEJ2gnP4Ju0n?a=tW1twHBQSJ")
+        json.put("advisorCode", "30201920")
+        json.put("agentMobile", "9414468070")
+        json.put("agentEmail", "test")
+        json.put("agentName", "test@bs.com")
+
+        MethodChannel(
+            flutterEngine.dartExecutor.binaryMessenger,
+            CHANNEL
+        ).setMethodCallHandler { call, result ->
+            if (call.method == METHOD) {
+                result.success(json.toString())
+            } else {
+                result.notImplemented()
+            }
+        }
     }
 }

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.AddToAppNativeHost"
         tools:targetApi="31">
         <activity
+            android:name="com.example.addtoappnativehost.BankSathiSdkActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
