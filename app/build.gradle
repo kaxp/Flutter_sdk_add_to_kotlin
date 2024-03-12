@@ -59,4 +59,5 @@ dependencies {
 //    releaseImplementation 'com.banksaathi.advisorsdk.advisor_sdk:flutter_release:1.0.0'
 
     implementation 'com.kapilsahu.kapil_add_to_app_flutter:flutter_release:3.0.0'
+
 }

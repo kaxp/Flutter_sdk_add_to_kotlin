@@ -10,7 +10,6 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-
 //        maven {
 //            url '/Users/kapilsahu/Documents/projects/advisor_sdk/build/host/outputs/repo'
 //        }
