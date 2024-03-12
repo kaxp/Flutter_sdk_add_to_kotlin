@@ -10,9 +10,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-//        maven { url 'https://jitpack.io' }
+//        maven {
+//            url '/Users/kapilsahu/Documents/projects/advisor_sdk/build/host/outputs/repo'
+//        }
         maven {
-            url 'https://storage.googleapis.com/download.flutter.io'
+            url "https://storage.googleapis.com/download.flutter.io"
         }
     }
 }
